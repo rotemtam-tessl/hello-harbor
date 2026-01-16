@@ -1,3 +1,10 @@
 #!/bin/bash
-# No oracle for this task
-echo "No oracle solution configured"
+set -e
+
+cd /workspace
+
+# Verify migrations are in sync with schema
+atlas migrate diff --env gorm sync
+
+# Run tests to verify the fix
+go test ./... -v

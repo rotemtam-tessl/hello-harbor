@@ -56,7 +56,6 @@ func (a *App) CreateTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 // CompleteTodo marks a todo as completed
-// BUG: This function has a bug that prevents todos from being marked complete
 func (a *App) CompleteTodo(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])

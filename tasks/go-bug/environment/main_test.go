@@ -277,3 +277,37 @@ func TestCreateTodoWithCategory(t *testing.T) {
 		t.Errorf("expected category_id %d, got %v", categoryID, todo.CategoryID)
 	}
 }
+
+func TestCategoryWithDescription(t *testing.T) {
+	app := setupTestApp(t)
+	router := app.SetupRouter()
+
+	// Create a category with description
+	body := []byte(`{"name":"Shopping","description":"Things to buy"}`)
+	req := httptest.NewRequest(http.MethodPost, "/categories", bytes.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	router.ServeHTTP(w, req)
+
+	if w.Code != http.StatusCreated {
+		t.Errorf("expected status %d, got %d", http.StatusCreated, w.Code)
+	}
+
+	var category models.Category
+	json.NewDecoder(w.Body).Decode(&category)
+
+	if category.Name != "Shopping" {
+		t.Errorf("expected name %q, got %q", "Shopping", category.Name)
+	}
+	if category.Description != "Things to buy" {
+		t.Errorf("expected description %q, got %q", "Things to buy", category.Description)
+	}
+
+	// Verify it persists by fetching it
+	var savedCategory models.Category
+	app.DB.First(&savedCategory, category.ID)
+	if savedCategory.Description != "Things to buy" {
+		t.Errorf("expected saved description %q, got %q", "Things to buy", savedCategory.Description)
+	}
+}

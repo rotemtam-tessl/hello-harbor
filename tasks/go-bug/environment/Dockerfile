@@ -12,3 +12,9 @@ RUN mkdir -p /logs/verifier
 # Copy Go module and download dependencies
 COPY go.mod ./
 RUN go mod tidy && go mod download
+
+# Copy the rest of the source files
+COPY . .
+
+# Compile 
+RUN go run -mod=mod ariga.io/atlas-provider-gorm --help
