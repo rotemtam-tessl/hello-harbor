@@ -1,0 +1,18 @@
+version = "1.0"
+
+[metadata]
+name = "Skill Test"
+description = "Test that skills are properly loaded into the agent"
+difficulty = "easy"
+
+[verifier]
+timeout_sec = 30
+
+[agent]
+timeout_sec = 120
+
+[environment]
+build_timeout_sec = 300
+cpu = 1
+memory_mb = 512
+storage_mb = 1024

@@ -1,0 +1,29 @@
+# Experiment: Compare Claude Code vs Claude with Skills on go-bug task
+#
+# Variants:
+#   1. claude-code: Plain Claude Code agent
+#   2. claude-with-skills (atlas-full): Full Atlas skill set
+#   3. claude-with-skills (db-schema-mgmt): Schema management skill only
+#
+# Run with: harbor run --config configs/go-bug-skills-comparison.yaml
+
+agents:
+  # Variant 1: Plain Claude Code
+  - name: claude-code
+
+  # Variant 2: Claude with Skills - atlas-full
+  - import_path: "agents.claude_code_with_skills:ClaudeCodeWithSkills"
+    name: claude-with-skills-atlas-full
+    kwargs:
+      skill_dir: skills
+      skills: atlas-full
+
+  # Variant 3: Claude with Skills - db-schema-mgmt only
+  - import_path: "agents.claude_code_with_skills:ClaudeCodeWithSkills"
+    name: claude-with-skills-db-schema-mgmt
+    kwargs:
+      skill_dir: skills
+      skills: db-schema-mgmt
+
+tasks:
+  - path: tasks/go-bug

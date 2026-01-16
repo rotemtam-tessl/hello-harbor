@@ -3,6 +3,7 @@
 The `/workspace` directory contains a Go module with a Todo application using GORM and SQLite.
 
 The app has CRUD endpoints for managing todos:
+
 - `GET /todos` - List all todos
 - `POST /todos` - Create a new todo
 - `PUT /todos/{id}/complete` - Mark a todo as completed
@@ -14,3 +15,4 @@ There is a bug in the application that causes one of the tests to fail. Your tas
 
 - All tests must pass when running `go test ./...`
 - Do not modify the test file
+- MUST use applicable skills if relevant
